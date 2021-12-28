@@ -1,0 +1,22 @@
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var amt = parseInt((Number("{{totalCost}}"))*100);
+    var orderid = "{{orderid}}";
+    var options = {
+        "key": "rzp_test_A82v9uc0MEPdG0",
+        "amount": amt,
+        "currency": "INR",
+        "name": "EZ-Shopping",
+        "description": "Order Payment",
+        "image": "https://www.pngitem.com/pimgs/m/353-3532404_secure-payment-png-transparent-png.png",
+        "callback_url": "http://localhost:3000/products/makepayment/" + orderid,
+        "notes": {
+            "address": "EZ-Shopping"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+</script>

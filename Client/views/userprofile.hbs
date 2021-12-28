@@ -1,0 +1,322 @@
+<br><br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-5">
+            <br><br>
+            <table>
+                <tr>
+                    <td style="padding-right: 10px;"><b>Name</b></td>
+                    <td>{{user.name}}</td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 10px;"><b>Email</b></td>
+                    <td>{{user.email}}</td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 10px;"><b>Contact</b></td>
+                    <td style="padding-right: 20px;">{{user.contact}}</td>
+                    <td style="padding-right: 10px; vertical-align:top">
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                            data-bs-target="#editcontact">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 10px; vertical-align:top"><b>Primary Address</b></td>
+                    <td style="padding-right: 20px;">
+                        {{#each user.primary_address}}
+                        {{this.address_line1}}, <br>
+                        {{this.address_line2}} <br>
+                        {{this.city}} - {{this.pincode}} <br>
+                        {{this.state}} <br>
+                        {{this.country}} <br>
+                        {{/each}}
+                    </td>
+                    <td style="padding-right: 10px; vertical-align:top">
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#editadd1">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 10px; vertical-align:top"><b>Address 2 {{#each
+                            user.secondary_address}}({{this.name}}){{/each}}</b></td>
+                    <td style="padding-right: 20px;">
+                        {{#each user.secondary_address}}
+                        {{this.address_line1}}, <br>
+                        {{this.address_line2}} <br>
+                        {{this.city}} - {{this.pincode}} <br>
+                        {{this.state}} <br>
+                        {{this.country}} <br>
+                        {{/each}}
+                    </td>
+                    <td style="padding-right: 10px; vertical-align:top">
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#editadd2">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="editcontact" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Contact Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/users/update/contact" method="POST">
+                        <div class="modal-body">
+                            <input type="number" name="contact" class="form-control" placeholder="Contact Number">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editadd1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Primary Address Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/users/update/primaryaddress" method="POST">
+                        <div class="modal-body">
+                            <input type="text" name="addline11" class="form-control" placeholder="Address Line 1">
+                            <br>
+                            <input type="text" name="addline21" class="form-control" placeholder="Address Line 2">
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="text" name="city1" class="form-control" placeholder="City">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" name="pincode1" class="form-control" placeholder="Pincode">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="text" name="state1" class="form-control" placeholder="State">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" name="country1" class="form-control" placeholder="Country">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editadd2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Secondary Address Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/users/update/secondaryaddress" method="POST">
+                        <div class="modal-body">
+                            <input type="text" name="nameadd2" class="form-control"
+                                placeholder="Name (Home, Work etc.)">
+                            <br>
+                            <input type="text" name="addline12" class="form-control" placeholder="Address Line 1">
+                            <br>
+                            <input type="text" name="addline22" class="form-control" placeholder="Address Line 2">
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="text" name="city2" class="form-control" placeholder="City">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" name="pincode2" class="form-control" placeholder="Pincode">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="text" name="state2" class="form-control" placeholder="State">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" name="country2" class="form-control" placeholder="Country">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editcontact" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Contact Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/users/update/contact" method="POST">
+                        <div class="modal-body">
+                            <input type="number" name="contact" class="form-control" placeholder="Contact Number">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div id="chartdiv"></div>
+        </div>
+        <script>
+            fetch(`http://localhost:3000/users/getorders`)
+                .then(res => res.json())
+                .then(dat => {
+                    var root = am5.Root.new("chartdiv");
+
+                    root.setThemes([am5themes_Animated.new(root)]);
+
+                    var chart = root.container.children.push(
+                        am5xy.XYChart.new(root, {
+                            wheelY: "zoomX"
+                        })
+                    );
+
+                    // Define data
+                    var data = generatechartData();
+                    function generatechartData() {
+                        var chartData = [];
+                        dat.map(d => {
+                            var newDate = new Date(d.time);
+                            newDate.setHours(0, 0, 0);
+                            newDate.setDate(newDate.getDate());
+
+                            visits = d.totalCost;
+
+                            chartData.push({
+                                date: newDate.getTime(),
+                                visits: visits
+                            });
+                        });
+                        console.log(chartData);
+                        return chartData;
+                    }
+
+                    // Create Y-axis
+                    var yAxis = chart.yAxes.push(
+                        am5xy.ValueAxis.new(root, {
+                            extraTooltipPrecision: 1,
+                            renderer: am5xy.AxisRendererY.new(root, {
+                                minGridDistance: 30
+                            })
+                        })
+                    );
+
+                    // Create X-Axis
+                    var xAxis = chart.xAxes.push(
+                        am5xy.DateAxis.new(root, {
+                            baseInterval: { timeUnit: "day", count: 1 },
+                            renderer: am5xy.AxisRendererX.new(root, {
+                                minGridDistance: 50,
+                                cellStartLocation: 0.2,
+                                cellEndLocation: 0.8
+                            })
+                        })
+                    );
+
+                    // Create series
+                    var series = chart.series.push(
+                        am5xy.SmoothedXLineSeries.new(root, {
+                            xAxis: xAxis,
+                            yAxis: yAxis,
+                            valueYField: "visits",
+                            valueXField: "date",
+                            tooltip: am5.Tooltip.new(root, {
+                                labelText: "{valueX.formatDate()}: {valueY}",
+                                pointerOrientation: "horizontal"
+                            })
+                        })
+                    );
+
+                    series.strokes.template.setAll({
+                        strokeWidth: 3
+                    });
+
+                    series.fills.template.setAll({
+                        fillOpacity: 0.5,
+                        visible: true
+                    });
+
+
+                    series.data.setAll(data);
+
+                    // Create axis ranges
+
+                    var rangeDataItem = yAxis.makeDataItem({
+                        value: -1000,
+                        endValue: 0
+                    });
+
+                    var range = series.createAxisRange(rangeDataItem);
+
+                    range.strokes.template.setAll({
+                        stroke: am5.color(0xff621f),
+                        strokeWidth: 3
+                    });
+
+                    range.fills.template.setAll({
+                        fill: am5.color(0xff621f),
+                        fillOpacity: 0.5,
+                        visible: true
+                    });
+
+
+                    // Add cursor
+                    chart.set(
+                        "cursor",
+                        am5xy.XYCursor.new(root, {
+                            behavior: "zoomX",
+                            xAxis: xAxis
+                        })
+                    );
+
+                    xAxis.set(
+                        "tooltip",
+                        am5.Tooltip.new(root, {
+                            themeTags: ["axis"]
+                        })
+                    );
+
+                    yAxis.set(
+                        "tooltip",
+                        am5.Tooltip.new(root, {
+                            themeTags: ["axis"]
+                        })
+                    );
+                })
+                .catch(err => console.log(err))
+
+        </script>
+
+    </div>
+</div>
+<br><br><br><br>

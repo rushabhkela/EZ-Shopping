@@ -1,0 +1,130 @@
+<div class="pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="border-0 bg-light">
+                                    <div class="p-2 px-3 text-uppercase">Product</div>
+                                </th>
+                                <th scope="col" class="border-0 bg-light">
+                                    <div class="py-2 text-uppercase">Price</div>
+                                </th>
+                                <th scope="col" class="border-0 bg-light">
+                                    <div class="py-2 text-uppercase">Quantity</div>
+                                </th>
+                                <th scope="col" class="border-0 bg-light">
+                                    <div class="py-2 text-uppercase">Edit</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each items}}
+                            <tr>
+                                <th scope="row" class="border-0">
+                                    <div class="p-2">
+                                        <img src="{{this.image}}" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                        &nbsp;&nbsp;
+                                        <div class="ml-3 d-inline-block align-middle">
+                                            <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle"
+                                                    style="text-decoration: none;">{{this.name}}</a></h5>
+                                        </div>
+                                    </div>
+                                </th>
+                                <td class="border-0 align-middle"><strong>₹ {{this.price}}</strong></td>
+                                <td class="border-0 align-middle"><strong>{{this.count}}</strong></td>
+                                <td class="border-0 align-middle" style="font-size: 30px;">
+                                    <a href="/products/updatecount/{{this.id}}/add"
+                                        style="text-decoration:none;color:green">+</a>
+                                    &nbsp;
+                                    <a href="/products/updatecount/{{this.id}}/remove"
+                                        style="text-decoration:none;color:red">-</a>
+                                </td>
+                            </tr>
+                            {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row py-5 p-4 bg-white rounded shadow-sm">
+            <div class="col-lg-6">
+                <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Coupon code</div>
+                <div class="p-4">
+                    <p class="font-italic mb-4">If you have a coupon code, please enter it in the box below</p>
+                    <div class="input-group mb-4 border rounded-pill p-2">
+                        <input type="text" id="promo" placeholder="Apply coupon" aria-describedby="button-addon3"
+                            class="form-control border-0">
+                        <div class="input-group-append border-0">
+                            <button id="button-addon3" type="button" onclick="checkPromo()"
+                                class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>&nbsp;Apply
+                                coupon</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions for seller
+                </div>
+                <div class="p-4">
+                    <p class="font-italic mb-4">If you have some information for the seller you can leave them in the
+                        box below</p>
+                    <textarea name="inst" id="inst" onkeyup="instr()" cols="30" rows="2" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
+                <div class="p-4">
+                    <p class="font-italic mb-4">Shipping and additional costs are calculated based on products selected.
+                    </p>
+                    <ul class="list-unstyled mb-4">
+                        <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Order
+                                Subtotal </strong><strong>₹ {{subtotal}} </strong></li>
+                        <li class="d-flex justify-content-between py-3 border-bottom"><strong
+                                class="text-muted">Shipping and handling</strong><strong>
+                                ₹ {{shipping}} </strong></li>
+                        <li class="d-flex justify-content-between py-3 border-bottom"><strong
+                                class="text-muted">Tax</strong><strong>
+                                ₹ {{tax}} </strong></li>
+                        <li class="d-flex justify-content-between py-3 border-bottom"><strong
+                                class="text-muted">Total</strong>
+                            <strong>
+                                ₹ {{totalcost}} </strong>
+                        </li>
+                    </ul><a href="/products/checkout" class="btn btn-dark rounded-pill py-2 btn-block" style="width: 100%;">Proceed to
+                        checkout</a>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            var checkPromo = function () {
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function () {
+                    if (this.responseText == "no") {
+                        alert("Invalid Promo Code");
+                        document.getElementById('promo').value = "";
+                        localStorage.setItem("promo", "");
+                    }
+                    else {
+                        var arr = this.responseText.split(" ");
+                        alert(arr[1] + "% discount will be applied on checkout.");
+                        localStorage.setItem("promo", this.responseText);
+                    }
+                }
+
+                xhttp.open("GET", "/products/checkpromo/" + document.getElementById('promo').value);
+                xhttp.send();
+            }
+            var instr = function() {
+                localStorage.setItem("instruction", document.getElementById('inst').value);
+            }
+            localStorage.setItem("instruction", "");
+            localStorage.setItem("promo", "NA");
+        </script>
+    </div>
+</div>

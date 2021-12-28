@@ -1,0 +1,82 @@
+<div class="album py-5 bg-light products">
+    <div class="container">
+        <h5>Filters</h5>
+        <div class="mb-3 form-check" style="display:inline-block; margin-right:7.7%">
+            <input type="checkbox" checked onchange="men()" class="form-check-input" id="men">
+            <label class="form-check-label" for="men">Men's Wear</label>
+        </div>
+        <div class="mb-3 form-check" style="display:inline-block; margin-right:7.7%">
+            <input type="checkbox" checked onchange="women()" class="form-check-input" id="women">
+            <label class="form-check-label" for="women">Women's Wear</label>
+        </div>
+        <div class="mb-3 form-check" style="display:inline-block; margin-right:7.7%">
+            <input type="checkbox" checked onchange="kids()" class="form-check-input" id="kids">
+            <label class="form-check-label" for="kids">Kid's Wear</label>
+        </div>
+        <div class="mb-3 form-check" style="display:inline-block; margin-right:7.7%">
+            <input type="checkbox" checked onchange="electronics()" class="form-check-input" id="electronics">
+            <label class="form-check-label" for="electronics">Electronics</label>
+        </div>
+        <div class="mb-3 form-check" style="display:inline-block; margin-right:7.7%">
+            <input type="checkbox" checked onchange="home()" class="form-check-input" id="home">
+            <label class="form-check-label" for="home">Home Appliances</label>
+        </div>
+        <div class="mb-3 form-check" style="display:inline-block;">
+            <input type="checkbox" checked onchange="life()" class="form-check-input" id="lifestyle">
+            <label class="form-check-label" for="lifestyle">Lifestyle Products</label>
+        </div>
+        <hr style="height: 5px;">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {{#each data}}
+            <div class="col {{this.category}}">
+                <div class="card shadow-sm">
+                    <img src="{{this.image}}" alt="product" width="400" height="400">
+
+                    <div class="card-body">
+                        <p class="card-text">{{this.name}}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            
+                            <h5 class="review-count">₹ {{this.price}}</h5>
+                            <div class="ratings" id="{{this._id}}" style="margin-top: -15px;">
+                                <script>
+                                    for(var i = 0; i < Number("{{this.rating}}"); i++) {
+                                        document.getElementById("{{this._id}}").innerHTML += ` <i class="fa fa-star rating-color"> `;
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="">
+                                <a href="/products/view/{{this._id}}"><button type="button" class="btn btn-sm btn-outline-secondary"><b>View More</b></button></a>
+                                <a href="/products/addtocart/{{this._id}}"><button type="button" class="btn btn-sm btn-outline-secondary"><b>Add To
+                                        Cart</b></button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+<script>
+    var men = function() {
+        $(".men").toggle();
+    }
+    var women = function() {
+        $(".women").toggle();
+    }
+    var kids = function() {
+        $(".kids").toggle();
+    }
+    var electronics = function() {
+        $(".electronics").toggle();
+    }
+    var home = function() {
+        $(".home").toggle();
+    }
+    var life = function() {
+        $(".lifestyle").toggle();
+    }
+</script>

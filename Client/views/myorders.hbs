@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid">
+            <h1 class="display-5 fw-bold">Order Summary</h1>
+            <hr>
+            <p class="col-md-8 fs-4">Thank You for choosing EZ-Shopping.</p>
+        </div>
+    </div>
+
+    <br>
+    <table class="table table-striped" id="datatablesSimple">
+        <thead>
+            <tr>
+                <th scope="col">S.No.</th>
+                <th scope="col">Date</th>
+                <th scope="col">Bill Amount</th>
+                <th scope="col">Payment</th>
+                <th scope="col">Order Status</th>
+                <th scope="col">Invoice</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+            <tr>
+                <th scope="row">{{@index}}</th>
+                <td>{{this.time}}</td>
+                <td>{{this.totalCost}}</td>
+                <td id="{{this._id}}"></td>
+                <script>
+                    if("{{this.isPaid}}" == "true") {
+                        document.getElementById("{{this._id}}").innerHTML = "{{this.paymentMethod}} - Paid"
+                    }
+                    if("{{this.paymentMethod}}" == "RazorPay" && "{{this.isPaid}}" == "false") {
+                        document.getElementById("{{this._id}}").innerHTML = '{{this.paymentMethod}} - <a href="/products/payment/{{this._id}}">Pay</a>';
+                    }
+                    if("{{this.paymentMethod}}" == "COD" && "{{this.isPaid}}" == "false") {
+                        document.getElementById("{{this._id}}").innerHTML = '{{this.paymentMethod}} - Cash-On-Delivery';
+                    }
+                </script>
+                <td>{{this.status}}</td>
+                <td><a href="/users/orders/{{this._id}}/downloadinvoice">Download</a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', event => {
+
+        const datatablesSimple = document.getElementById('datatablesSimple');
+        if (datatablesSimple) {
+            new simpleDatatables.DataTable(datatablesSimple);
+        }
+    });
+
+</script>

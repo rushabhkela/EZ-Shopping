@@ -1,0 +1,124 @@
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+            <img src="{{data.image}}" class="d-block mx-lg-auto img-fluid" alt="product" style="width: 100%;"
+                loading="lazy">
+        </div>
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-3">{{data.name}}</h1>
+            <p class="lead">{{data.description}}</p>
+            <table class="lead">
+                <tr>
+                    <td style="font-weight: 600; padding-right:20px">Model</td>
+                    <td>{{data.model}}</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600; padding-right:20px">Price</td>
+                    <td>₹ {{data.price}}</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 600; padding-right:20px">Ratings</td>
+                    <td>
+                        <div class="ratings" id="{{data._id}}">
+                            <script>
+                                for (var i = 0; i < Number("{{data.rating}}"); i++) {
+                                    document.getElementById("{{data._id}}").innerHTML += ` <i class="fa fa-star rating-color"> `;
+                                }
+                            </script>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <div id="avail"></div>
+            
+            <script>
+                if(Number("{{data.quantity}}") == 0) {
+                    document.getElementById("avail").innerHTML = `<p class="lead" id="avail">Out of stock!</p>`;
+                }
+                else {
+                    document.getElementById("avail").innerHTML = `<a href="/products/addtocart/{{id}}"><button class="btn btn-success">Add to Cart</button></a>`;
+                }
+            </script>
+        </div>
+    </div>
+    <hr>
+</div>
+
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="d-flex justify-content-start" style="float:left">
+        <h4>Reviews</h4>
+    </div>
+    <div class="d-flex justify-content-end">
+        {{#if notreview}}
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addreview">Add
+            Review</button>
+        &nbsp;&nbsp;
+        {{else}}
+        <button type="button" class="btn btn-light">Review Submitted</button>
+        &nbsp;&nbsp;
+        <a href="/products/deletereview/{{id}}"><button type="button" class="btn btn-danger">Delete Review</button></a>
+        {{/if}}
+    </div>
+    <br>
+
+    <div class="modal fade" id="addreview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/products/addreview" method="POST">
+                    <div class="modal-body">
+                        <h5 class="modal-title" id="exampleModalLabel">Review : </h5>
+                        <textarea name="review" class="form-control"></textarea>
+                        <input type="hidden" name="prodid" value="{{id}}" class="form-control">
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5 class="modal-title" id="exampleModalLabel">Ratings : </h5>
+                            </div>
+                            <div class="col-sm-6">
+                                <select name="rating" class="form-select">
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{#each data.reviews}}
+    <div class="card">
+        <div class="card-header">
+            <img src="https://ui-avatars.com/api/?name={{this.userName}}" class="rounded-circle" alt="avatar"
+                width="5%">
+            &nbsp;{{this.userName}}</span>
+        </div>
+        <div class="card-body">
+            <div class="ratings" id="{{this.ofUser}}">
+                <script>
+                    for (var i = 0; i < Number("{{this.rating}}"); i++) {
+                        document.getElementById("{{this.ofUser}}").innerHTML += ` <i class="fa fa-star rating-color"> `;
+                    }
+                </script>
+            </div>
+            <p class="card-text">{{this.comment}}</p>
+        </div>
+    </div>
+    <br>
+    {{/each}}
+
+</div>
