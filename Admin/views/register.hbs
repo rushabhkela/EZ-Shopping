@@ -1,0 +1,54 @@
+<div class="container col-xxl-6">
+    <main>
+        <div class="py-5 text-center">
+            <h2>Create Your Admin Account</h2>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-md-12 col-lg-12">
+                <form method="POST" action="/createadmin">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="firstName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="firstName" name="name" placeholder="" value="" required>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="email" class="form-label">Email </label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="you@example.com">
+
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="pwd" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="pwd" name="pwd" onkeyup="check()" required>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="cpwd" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" name="cpwd" id="cpwd" onkeyup="check()" required>
+
+                        </div>
+                    </div>
+
+                        <br>
+                        <br>
+                    <p><b>Please Note : Only one admin account can be made. Please verify your details before submitting.</b></p>
+                    <hr class="my-4">
+
+                    <button class="w-100 btn btn-primary btn-lg" id="subBTN" disabled type="submit">Continue</button>
+                </form>
+                <script>
+                    var check = function() {
+                        if(document.getElementById('pwd').value == document.getElementById('cpwd').value) {
+                            document.getElementById('subBTN').disabled = false;
+                        }
+                        else {
+                            document.getElementById('subBTN').disabled = true;
+                        }
+                    }
+                </script>
+                <br><br><br><br>
+            </div>
+        </div>
+    </main>
+</div>

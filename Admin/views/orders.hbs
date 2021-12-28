@@ -1,0 +1,90 @@
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">View Orders</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item active">Orders</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Orders
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Shipping Address</th>
+                            <th>Product Stock</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Shipping Address</th>
+                            <th>Product Stock</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {{#each data}}
+                            <tr>
+                                <td>{{this._id}}</td>
+                                <td>
+                                    Name : {{this.shippingAddress.name}} <br>
+                                    Email : {{this.shippingAddress.email}} <br>
+                                    Address : <br>
+                                    {{this.shippingAddress.address.address_line1}}, 
+                                    {{this.shippingAddress.address.address_line2}} <br>
+                                    {{this.shippingAddress.address.city}} - {{this.shippingAddress.address.pincode}} <br>
+                                    {{this.shippingAddress.address.state}} <br>
+                                    {{this.shippingAddress.address.country}}
+                                </td>
+                                <td>
+                                    {{this.canSend}}
+                                </td>
+                                <td>{{this.totalCost}}</td>
+                                <td><button class="btn btn-light"><b>{{this.status}}</b></button></td>
+                                <td id="{{this._id}}">
+                                    
+                                </td>
+                                <script>
+                                    var ele = document.getElementById('{{this.id}}')
+                                    if("{{this.status}}" == "Cancelled") {
+                                        ele.innerHTML = "";
+                                    }
+                                    else if("{{this.status}}" == "Delivered") {
+                                        ele.innerHTML = "";
+                                    }
+                                    else if("{{this.status}}" == "Out For Delivery") {
+                                        ele.innerHTML = "<a href='/orders/delivered/{{this._id}}'><button class='btn btn-light'><b>Delivered</b></button></a>";
+                                    }
+                                    else if("{{this.canSend}}" == "No") {
+                                        ele.innerHTML = "<a href='/orders/cancelled/{{this._id}}'><button class='btn btn-light'><b>Cancelled</b></button></a>";
+                                    }
+                                    else {
+                                        ele.innerHTML = `
+                                            <a href='/orders/outfordelivery/{{this._id}}'><button class='btn btn-light'><b>Out for Delivery</b></button></a>
+                                            <br>
+                                            <br>
+                                            <a href='/orders/delivered/{{this._id}}'><button class='btn btn-light'><b>Delivered</b></button></a>
+                                            <br>
+                                            <br>
+                                            <a href='/orders/cancelled/{{this._id}}'><button class='btn btn-light'><b>Cancelled</b></button></a>
+                                        `;
+                                    }
+                                </script>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,76 @@
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Vendors</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item active">Vendors</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Vendors
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Contact</th>
+                            <th>Documents</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Contact</th>
+                            <th>Documents</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {{#each data}}
+                        <tr>
+                            <td>{{this.name}}</td>
+                            <td>{{this.email}}</td>
+                            <td>
+                                {{this.address.address_line1}}, 
+                                {{this.address.address_line2}} <br>
+                                {{this.address.city}} - {{this.address.pincode}} <br>
+                                {{this.address.state}} <br>
+                                {{this.address.country}}
+                            </td>
+                            <td>
+                                {{this.contact}}
+                            </td>
+                            <td>
+                                <a href="{{this.identity_document}}">Download</a>
+                            </td>
+                            <td id="{{this._id}}">
+                                
+                            </td>
+                                <script>
+                                    if("{{this.isVerified}}" == "true") {
+                                        document.getElementById("{{this._id}}").innerHTML = "<button  style='color: green' class='btn btn-light'><b>Approved<b></button>";
+                                    }
+                                    else {
+                                        document.getElementById("{{this._id}}").innerHTML = "<a href='/verify/{{this._id}}'><button class='btn btn-light'><b>Verify<b></button></a>";
+                                    }
+                                </script>
+                            <td>
+                                  <a href='/remove/{{this._id}}'><button style="color: red;" class='btn btn-light'><b>Remove<b></button></a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
