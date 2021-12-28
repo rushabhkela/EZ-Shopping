@@ -1,0 +1,18 @@
+<div class="container col-xxl-10 py-5">
+<br>
+<h2>Update Stock</h2><br>
+<form class="row g-3" style="font-size: 20px;" method="POST" action="/updatestock">
+    <div class="col-md-4">
+        <label for="upd" class="form-label">Product ID</label>
+        <input type="text" class="form-control" id="upd" name="upd" required>
+    </div>
+    <div class="col-md-4">
+        <label for="qant" class="form-label">Quantity</label>
+        <input type="number" class="form-control" id="qant" name="qant" required>
+    </div>
+
+    <div class="col-12">
+        <button style="font-size: 25px;" class="btn btn-warning" type="submit">Update Stock</button>
+    </div>
+</form>
+</div>

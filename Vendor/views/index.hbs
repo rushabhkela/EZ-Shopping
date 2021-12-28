@@ -1,0 +1,58 @@
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">View Orders</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item active">Orders</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Orders
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead style="font-size: larger;">
+                        <tr>
+                            <th>OrderID</th>
+                            <th>ProductID</th>
+                            <th>Order Date</th>
+                            <th>Count</th>
+                            <th>Payment Method</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ProductID</th>
+                            <th>OrderID</th>
+                            <th>Order Date</th>
+                            <th>Count</th>
+                            <th>Payment Method</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {{#each data}}
+                            <tr>
+                                <td>{{this.orderid}}</td>
+                                <td>{{this.productid}}</td>
+                                <td>{{this.time}}</td>
+                                <td>{{this.count}}</td>
+                                <td>{{this.pay}}</td>
+                                <td>
+                                    {{#if this.sent}}
+                                    Sent
+                                    {{else}}
+                                    <a href="/dispatch/{{this.orderid}}/{{this.productid}}">Dispatch</a>
+                                    {{/if}}
+                                </td>
+                            </tr>
+
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

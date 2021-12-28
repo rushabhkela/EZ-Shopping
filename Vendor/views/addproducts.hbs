@@ -1,0 +1,49 @@
+<div class="container col-xxl-10 py-5">
+    <br>
+    <h2>Add Products</h2><br><br>
+    <form class="row g-3" style="font-size: 20px;" method="POST" action="/addproducts" enctype="multipart/form-data">
+        <div class="col-md-4">
+            <label for="id" class="form-label">Product ID</label>
+            <input type="text" class="form-control" id="id" disabled required>
+        </div>
+        <div class="col-md-4">
+            <label for="code" class="form-label">Product Model</label>
+            <input type="text" class="form-control" id="code" name="model" required>
+        </div>
+        <div class="col-md-4">
+            <label for="nameProd" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="nameProd" name="name" required>
+        </div>
+        <div class="col-md-9">
+            <label for="desc" class="form-label">Description</label>
+            <input type="text" class="form-control" id="desc" name="desc" required>
+        </div>
+        <div class="col-md-3">
+            <label for="cat" class="form-label">Category</label>
+            <select class="form-select" id="cat" name="cat" required>
+                <option selected disabled value="">Category</option>
+                <option value="men">Men's Wear</option>
+                <option value="women">Women's Wear</option>
+                <option value="kids">Kids' Wear</option>
+                <option value="home">Home Appliances</option>
+                <option value="electronics">Electronics</option>
+                <option value="lifestyle">Lifestyle Products</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="img" class="form-label">Image (.png)</label>
+            <input type="file" class="form-control" accept=".png" id="img" name="imgfile" required>
+        </div>
+        <div class="col-md-4">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" required>
+        </div>
+        <div class="col-md-4">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" required>
+        </div>
+        <div class="col-12">
+            <button style="font-size: 25px;" class="btn btn-success" type="submit">Add Product </button>
+        </div>
+    </form>
+</div>
